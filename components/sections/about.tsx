@@ -2,13 +2,29 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { SITE } from "@/lib/site";
-import { HeartHandshake, ShieldCheck, Sparkles, MapPin } from "lucide-react";
+import {
+  HeartHandshake,
+  ShieldCheck,
+  Sparkles,
+  MapPin,
+  Stethoscope,
+  Smile,
+  Sparkle,
+} from "lucide-react";
 
 function mapsLink(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     address
   )}`;
 }
+
+const SPECIALTIES = [
+  { title: "Orthodontics (Braces)", icon: Smile },
+  { title: "Prosthodontics", icon: Stethoscope },
+  { title: "Endodontics", icon: ShieldCheck },
+  { title: "Cosmetic Dentistry", icon: Sparkle },
+  { title: "Tooth Whitening", icon: Sparkles },
+] as const;
 
 export function AboutSection() {
   const locations =
@@ -32,14 +48,38 @@ export function AboutSection() {
           </p>
 
           <h2 className='text-2xl font-semibold tracking-tight sm:text-3xl'>
-            A clinic that prioritizes comfort, honesty, and quality care
+            Professional dentists, specialized care
           </h2>
 
           <p className='text-sm leading-relaxed text-muted-foreground'>
-            {SITE.name} is committed to comfortable, honest, and quality dental
-            care. We focus on patient education, gentle treatment, and long-term
-            oral health — so you can make confident decisions for your smile.
+            We are a team of highly-trained professional dentists specialized in{" "}
+            <span className='font-medium text-foreground'>
+              Orthodontics (Dental Braces), Prosthodontics, Endodontics,
+              Cosmetic Dentistry, and Tooth Whitening
+            </span>
+            . Our goal is to give you clear guidance and comfortable treatment—
+            so you feel confident in every step of your dental journey.
           </p>
+
+          {/* Specialties pills */}
+          <div className='mt-5 grid gap-3 sm:grid-cols-2'>
+            {SPECIALTIES.map((s) => {
+              const Icon = s.icon;
+              return (
+                <div
+                  key={s.title}
+                  className='flex items-center gap-3 rounded-2xl border bg-background p-4'
+                >
+                  <div className='flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10'>
+                    <Icon className='h-4.5 w-4.5 text-primary' />
+                  </div>
+                  <p className='text-sm font-semibold text-foreground'>
+                    {s.title}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
 
           {/* Values */}
           <div className='mt-5 grid gap-3 sm:grid-cols-3'>
@@ -77,12 +117,12 @@ export function AboutSection() {
           {/* Reassurance */}
           <div className='mt-5 rounded-2xl border bg-muted/30 p-5'>
             <p className='text-sm font-semibold text-foreground'>
-              First time visiting?
+              Not sure what treatment you need?
             </p>
             <p className='mt-1 text-sm leading-relaxed text-muted-foreground'>
-              If you’re not sure what you need, that’s okay — we’ll guide you
-              step-by-step and explain your options clearly before any
-              procedure.
+              Tell us your concern (pain, cleaning, braces, whitening, etc.).
+              We’ll recommend the next best step and confirm the right schedule
+              for your preferred branch.
             </p>
           </div>
         </div>
@@ -149,7 +189,8 @@ export function AboutSection() {
               </div>
 
               <p className='text-xs text-muted-foreground'>
-                For faster booking, send your preferred branch in the message.
+                For faster booking, include your preferred branch (Ortigas or
+                Makati) in your message.
               </p>
             </CardContent>
           </Card>
